@@ -125,10 +125,14 @@ class EventEmitter:
         if self.hasEvent(event, True):
             self.getStackOf(event).detachListener(listener)
 
-    def removeAllListeners(self, event):
-        if self.hasEvent(event, True):
-            self.getStackOf(event).detachAllListeners()
-        del self.__listeners[event]
+    def removeAllListeners(self, event=None):
+        if type(event) is str:
+            if self.hasEvent(event, True):
+                self.getStackOf(event).detachAllListeners()
+            del self.__listeners[event]
+        else:
+            for event in self.rawListeners:
+                self.removeAllListeners(event)
 
     def hasEvent(self, event, raiseException=False):
         status = event in self.__listeners and type(
