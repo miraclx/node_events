@@ -124,6 +124,7 @@ class EventEmitter:
     def removeListener(self, event, listener):
         if self.hasEvent(event, True):
             self.getStackOf(event).detachListener(listener)
+        return self
 
     def removeAllListeners(self, event=None):
         if type(event) is str:
@@ -133,6 +134,7 @@ class EventEmitter:
         else:
             for event in self.rawListeners:
                 self.removeAllListeners(event)
+        return self
 
     def hasEvent(self, event, raiseException=False):
         status = event in self.__listeners and type(
