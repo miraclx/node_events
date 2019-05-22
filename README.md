@@ -186,6 +186,43 @@ if `raiseException` is True, raise an exception if the result of the check evalu
 Safely check that the core [EventListenerStack](#eventlistenerstack) has at least one listener.
 Implements the [`EventListenerStack::hasListeners()`](#eventlistenerstack_haslisteners) inherently.
 
+### <a id="eventlistener"></a> Class: `EventListener`(listener)
+
+* `listener`: &lt;function&gt;
+
+This class wraps the `listener` function with useful, sandboxed manipulative features
+
+The `EventListener` class is defined and exposed publicly by the module:
+``` python
+from node_events import EventListener
+
+def fn():
+  print("test_fn")
+
+EventListener(fn).respond()
+
+# Prints
+#   test_fn
+```
+
+#### <a id="eventlistener_listenercount"></a> EventListener.`listenerCount`<sub>(getter)</sub>
+
+Number of times the function has been called
+
+#### <a id="eventlistener_respond"></a> EventListener.`respond`(*data)
+
+* `*data`: &lt;any&gt;
+
+Send the `data` arguments to the encapsulated function in evaluation
+
+#### <a id="eventlistener_verify"></a> EventListener.`verify`(fn)
+
+* `fn`: &lt;function&gt;
+* Returns: &lt;boolean&gt;
+
+Check if `fn` matches with the encapsulated function
+Useful in finding the instance amongst others by matching its core
+
 ### <a id="eventlistenerstack"></a> Class: `EventListenerStack`(eventName)
 
 * `eventName`: &lt;string&gt;
@@ -208,24 +245,57 @@ stack.respond()
 #   hi from test_fn
 ```
 
-### <a id="eventlistener"></a> Class: `EventListener`(listener)
+#### <a id="eventlistenerstack_listeners"></a> EventListenerStack.`listeners`<sub>(getter)</sub>
 
-* `listener`: &lt;function&gt;
+Return a copy of the private listeners array. (recommended if iterations skips some indexes in [`self.rawListeners`](#eventlistenerstack_rawlisteners))
 
-This class wraps the `listener` function with useful, sandboxed manipulative features
+#### <a id="eventlistenerstack_listenercount"></a> EventListenerStack.`listenerCount`<sub>(getter)</sub>
 
-The `EventListener` class is defined and exposed publicly by the module:
-``` python
-from node_events import EventListener
+Return the number of listeners exist and are actively waiting for event firings
 
-def fn():
-  print("test_fn")
+#### <a id="eventlistenerstack_respond"></a> EventListenerStack.`respond`(*data)
 
-EventListener(fn).respond()
+* `*data`: &lt;any&gt;
+* Returns: &lt;boolean&gt;
 
-# Prints
-#   test_fn
-```
+Send the `data` arguments to all the listeners within the stack in the order of which they appear
+Returns True if the stack has any active listeners who read the data else False
+
+#### <a id="eventlistenerstack_verifyhaslistener"></a> EventListenerStack.`verifyHasListener`(fn)
+
+* `fn`: &lt;function&gt;
+
+Check if the stack has the listener `fn`
+
+#### <a id="eventlistenerstack_attachlistener"></a> EventListenerStack.`attachListener`(fn, index)
+
+* `fn`: &lt;function&gt;
+* `index`: &lt;number&gt;
+
+Attach the `fn` listener to the event stack.
+The `index` parameter determines the index at which to place the function in the stack array
+Note, function calls are based on orderly calls from the stack array
+
+#### <a id="eventlistenerstack_detachlistener"></a> EventListenerStack.`detachListener`(fn)
+
+* `fn`: &lt;function&gt;
+* Returns: &lt;boolean&gt;
+
+Detach the `fn` listener from the stack if it exists returning True otherwise return False
+
+#### <a id="eventlistenerstack_detachalllisteners"></a> EventListenerStack.`detachAllListeners`()
+
+Detach all the listeners within the stack
+
+#### <a id="eventlistenerstack_haslisteners"></a> EventListenerStack.`hasListeners`()
+
+Check if the stack has any listeners within
+
+#### <a id="eventlistenerstack_extractinstanceof"></a> EventListenerStack.`extractInstanceOf`(fn)
+
+* `fn`: &lt;function&gt;
+
+Extract the [`EventListener`](#eventlistener) instance encapsulating the `fn` listener if it exists otherwise return `None`
 
 ## Development
 
