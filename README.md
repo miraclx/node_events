@@ -38,7 +38,7 @@ myEmitter.emit('event')
 
 ### <a id="eventemitter"></a> Class: `EventEmitter`
 
-The EventEmitter class is defined and exposed by the module:
+The `EventEmitter` class is defined and exposed publicly by the module:
 ``` python
 from node_events import EventEmitter
 ```
@@ -150,6 +150,82 @@ emitter.emit('connection')
 ```
 
 Returns a reference to the `EventEmitter`, so that calls can be chained.
+
+#### <a id="eventemitter_removealllisteners"></a> EventEmitter.`removeAllListeners`([eventName])
+
+* `eventName`: &lt;string&gt; The name of the event.
+* Returns: &lt;[EventEmitter](#eventemitter)&gt;
+
+Removes all listeners, or those of the specified `eventName`.
+
+Returns a reference to the EventEmitter, so that calls can be chained.
+
+#### <a id="eventemitter_removelistener"></a> EventEmitter.`removeListener`(eventName, listener)
+
+* `eventName`: &lt;string&gt;
+* `listener`: &lt;function&gt;
+* Returns: &lt;[EventEmitter](#eventemitter)&gt;
+
+Removes the specified `listener` from the listener array for the event named `eventName`.
+
+#### <a id="eventemitter_hasevent"></a> EventEmitter.`hasEvent`(eventName, raiseException)
+
+* `eventName`: &lt;string&gt;
+* `raiseException`: &lt;boolean&gt; (**Default**: `False`)
+* Returns: &lt;[EventEmitter](#eventemitter)&gt;
+
+Check if the event emitter has within itself an event named `eventName`, return a boolean for the operation.
+if `raiseException` is True, raise an exception if the result of the check evaluates to `False`.
+
+#### <a id="eventemitter_haslisteners"></a> EventEmitter.`hasListeners`(eventName)
+
+* `eventName`: &lt;string&gt;
+* `raiseException`: &lt;boolean&gt;
+* Returns: &lt;[EventEmitter](#eventemitter)&gt;
+
+Safely check that the core [EventListenerStack](#eventlistenerstack) has at least one listener.
+Implements the [`EventListenerStack::hasListeners()`](#eventlistenerstack_haslisteners) inherently.
+
+### <a id="eventlistenerstack"></a> Class: `EventListenerStack`(eventName)
+
+* `eventName`: &lt;string&gt;
+
+Stacking layer of listeners for an event defined named `eventName`
+Serves as an interfacing remote for series of grouped listeners
+
+The `EventListenerStack` class is defined and exposed publicly by the module:
+``` python
+from node_events import EventListenerStack
+
+def test_fn():
+  print("hi from test_fn")
+
+stack = EventListenerStack("event_name")
+stack.attachListener(test_fn, 0)
+stack.respond()
+
+# Print
+#   hi from test_fn
+```
+
+### <a id="eventlistener"></a> Class: `EventListener`(listener)
+
+* `listener`: &lt;function&gt;
+
+This class wraps the `listener` function with useful, sandboxed manipulative features
+
+The `EventListener` class is defined and exposed publicly by the module:
+``` python
+from node_events import EventListener
+
+def fn():
+  print("test_fn")
+
+EventListener(fn).respond()
+
+# Prints
+#   test_fn
+```
 
 ## Development
 
