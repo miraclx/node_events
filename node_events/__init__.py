@@ -47,18 +47,6 @@ class EventListenerStack():
         for listener in self.listeners:
             self.detachListener(listener)
 
-    @property
-    def listeners(self):
-        return list(self.__listeners)
-
-    @property
-    def rawListeners(self):
-        return self.__listeners
-
-    @property
-    def listenerCount(self):
-        return len(self.__listeners)
-
     def hasListeners(self):
         return bool(self.listenerCount)
 
@@ -68,6 +56,14 @@ class EventListenerStack():
             if listener.verify(fn):
                 result = listener
         return result
+
+    @property
+    def listeners(self):
+        return list(self.__listeners)
+
+    @property
+    def listenerCount(self):
+        return len(self.listeners)
 
 
 class EventListener():
@@ -89,7 +85,7 @@ class EventListener():
 
 class EventEmitter:
     def __init__(self):
-        self.__listeners = {}
+        self.__raw_listeners = {}
 
     def __onceWrap(self, event, listener):
         def wrapped_fn(*data):
@@ -136,7 +132,7 @@ class EventEmitter:
                 self.getStackOf(event).detachAllListeners()
             del self.__listeners[event]
         else:
-            for event in self.rawListeners:
+            for event in self.__listeners:
                 self.removeAllListeners(event)
         return self
 
@@ -155,8 +151,8 @@ class EventEmitter:
         return self.__listeners[event] if self.hasEvent(event) else None
 
     @property
-    def rawListeners(self):
-        return self.__listeners
+    def __listeners(self):
+        return list(self.__raw_listeners)
 
 
 if __name__ == "__main__":
