@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="node_events",
-    version="0.6.0",
+    version="0.6.2",
     author="Miraculous Owonubi",
     author_email="omiraculous@gmail.com",
     description="A minor rewrite of the NodeJS EventEmitter in Python",
