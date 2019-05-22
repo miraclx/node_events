@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
 """
-                node_events.py:
-A mini-python-rewrite of the NodeJS EventEmitter
-based on a simple implementation of its eventloop
+                 node_events.py:
+A minor rewrite of the NodeJS EventEmitter in Python
 """
 
 __author__ = "Miraculous Owonubi"
 __copyright__ = "Copyright 2019"
 __credits__ = ["Miraculous Owonubi"]
 __license__ = "Apache-2.0"
-__version__ = "0.5.0"
+__version__ = "0.6.0"
 __maintainer__ = "Miraculous Owonubi"
 __email__ = "omiraculous@gmail.com"
 __status__ = "Development"
