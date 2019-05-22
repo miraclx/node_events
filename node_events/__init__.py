@@ -21,10 +21,10 @@ class EventListenerStack():
         self.__event = event
         self.__listeners = []
 
-    def respond(self, data):
+    def respond(self, *data):
         if self.hasListeners():
             for listener in self.listeners:
-                listener.respond(data)
+                listener.respond(*data)
             return True
         return False
 
@@ -75,9 +75,9 @@ class EventListener():
         self.listener = self.__listener = listener
         self._called_times = 0
 
-    def respond(self, data):
+    def respond(self, *data):
         self._called_times += 1
-        self.__listener(data)
+        self.__listener(*data)
 
     def verify(self, fn):
         return self.__listener == fn
@@ -88,9 +88,9 @@ class EventEmitter:
         self.__listeners = {}
 
     def __onceWrap(self, event, listener):
-        def wrapped_fn(data):
+        def wrapped_fn(*data):
             self.removeListener(event, wrapped_fn)
-            listener(data)
+            listener(*data)
         return wrapped_fn
 
     def __addListener(self, event, listener, prepend):
@@ -112,8 +112,11 @@ class EventEmitter:
     def prependOnceListener(self, event, listener):
         return self.__addListener(event, self.__onceWrap(event, listener), True)
 
-    def emit(self, event, data):
-        return self.hasEvent(event) and self.getStackOf(event).respond(data)
+    def emit(self, event, *data):
+        return self.hasEvent(event) and self.getStackOf(event).respond(*data)
+
+    def addListener(self, *args):
+        return self.on(*args)
 
     def off(self, *args):
         return self.removeListener(*args)
