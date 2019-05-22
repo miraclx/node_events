@@ -9,7 +9,7 @@ __author__ = "Miraculous Owonubi"
 __copyright__ = "Copyright 2019"
 __credits__ = ["Miraculous Owonubi"]
 __license__ = "Apache-2.0"
-__version__ = "0.6.0"
+__version__ = "0.6.2"
 __maintainer__ = "Miraculous Owonubi"
 __email__ = "omiraculous@gmail.com"
 __status__ = "Development"
@@ -151,7 +151,7 @@ class EventEmitter:
 
     @property
     def __listeners(self):
-        return list(self.__raw_listeners)
+        return self.__raw_listeners
 
 
 if __name__ == "__main__":
