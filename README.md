@@ -307,8 +307,7 @@ Feel free to clone, use in adherance to the [license](#license) and perhaps send
 git clone https://github.com/miraclx/node_events.py.git
 cd node_events.py
 # hack on code
-python3 setup.py bdist_wheel
-pip3 install dist/*.whl --user
+pip3 install . --user
 ```
 
 ## License
