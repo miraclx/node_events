@@ -247,7 +247,7 @@ stack.respond()
 
 #### <a id="eventlistenerstack_listeners"></a> EventListenerStack.`listeners`<sub>(getter)</sub>
 
-Return a copy of the private listeners array. (recommended if iterations skips some indexes in [`self.rawListeners`](#eventlistenerstack_rawlisteners))
+Return a copy of the private listeners array.
 
 #### <a id="eventlistenerstack_listenercount"></a> EventListenerStack.`listenerCount`<sub>(getter)</sub>
 
