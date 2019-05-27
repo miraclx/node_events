@@ -241,7 +241,7 @@ stack = EventListenerStack("event_name")
 stack.attachListener(test_fn, 0)
 stack.respond()
 
-# Print
+# Prints
 #   hi from test_fn
 ```
 
