@@ -51,6 +51,8 @@ from node_events import EventEmitter
 
 Alias for [`self.on(eventName, listener)`](#eventemitter_on)
 
+Emits the `'addlistener:{eventName}'` event when called.
+
 #### <a id="eventemitter_on"></a> EventEmitter.`on`(eventName, listener)
 
 * `eventName`: &lt;string&gt; The name of the event.
@@ -58,6 +60,9 @@ Alias for [`self.on(eventName, listener)`](#eventemitter_on)
 * Returns: &lt;[EventEmitter](#eventemitter)&gt;
 
 Appends the `listener` to the listeners array for the event named `eventName`. Multiple calls passing the same combination of eventName and listener will result in the listener being added, and called, multiple times.
+
+Emits the `'addlistener:{eventName}'` event when called.
+
 By default, event listeners are invoked in the order they are added. The [`emitter.prependListener()`](#eventemitter_prependlistener) method can be used as an alternative to add the event listener to the beginning of the listeners array.
 
 Returns a reference to the `EventEmitter`, so that calls can be chained.
@@ -88,6 +93,9 @@ emitter.emit('test')
 * Returns: &lt;[EventEmitter](#eventemitter)&gt;
 
 Adds a **one-time** `listener` function for the event named `eventName`. The next time `eventName` is triggered, this listener is removed and then invoked.
+
+Emits the `'addlistener:{eventName}'` event when called.
+
 By default, event listeners are invoked in the order they are added. The [`emitter.prependOnceListener()`](#eventemitter_prependoncelistener) method can be used as an alternative to add the event listener to the beginning of the listeners array.
 
 Returns a reference to the `EventEmitter`, so that calls can be chained.
@@ -119,6 +127,8 @@ emitter.emit('test')
 
 Adds the `listener` function to the beginning of the listeners array for the event named `eventName`. Multiple calls passing the same combination of eventName and listener will result in the listener being added, and called, multiple times.
 
+Emits the `'addlistener:{eventName}'` event when called.
+
 ``` python
 emitter = EventEmitter()
 
@@ -139,6 +149,8 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 Adds a **one-time** `listener` function for the event named `eventName` to the beginning of the listeners array. The next time `eventName` is triggered, this listener is removed, and then invoked.
 
+Emits the `'addlistener:{eventName}'` event when called.
+
 ``` python
 emitter = EventEmitter()
 
@@ -158,6 +170,8 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 Removes all listeners, or those of the specified `eventName`.
 
+Emits the `'rmlistener:{eventName}'` event when called.
+
 Returns a reference to the EventEmitter, so that calls can be chained.
 
 #### <a id="eventemitter_removelistener"></a> EventEmitter.`removeListener`(eventName, listener)
@@ -167,6 +181,8 @@ Returns a reference to the EventEmitter, so that calls can be chained.
 * Returns: &lt;[EventEmitter](#eventemitter)&gt;
 
 Removes the specified `listener` from the listener array for the event named `eventName`.
+
+Emits the `'rmlistener:{eventName}'` event when called.
 
 #### <a id="eventemitter_hasevent"></a> EventEmitter.`hasEvent`(eventName, raiseException)
 
