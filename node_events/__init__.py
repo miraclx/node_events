@@ -95,8 +95,8 @@ class EventEmitter:
         if not self.hasEvent(event):
             self.__listeners[event] = EventListenerStack(event)
         stack = self.getStackOf(event)
-        self.emit(f'addlistener:{event}')
         stack.attachListener(listener, 0 if prepend else stack.listenerCount)
+        self.emit(f'addlistener:{event}')
         return self
 
     def on(self, event, listener):
@@ -122,16 +122,16 @@ class EventEmitter:
 
     def removeListener(self, event, listener):
         if self.hasEvent(event, True):
-            self.emit(f'rmlistener:{event}')
             self.getStackOf(event).detachListener(listener)
+            self.emit(f'rmlistener:{event}')
         return self
 
     def removeAllListeners(self, event=None):
         if type(event) is str:
             if self.hasEvent(event, True):
-                self.emit(f'rmlistener:{event}')
                 self.getStackOf(event).detachAllListeners()
             del self.__listeners[event]
+            self.emit(f'rmlistener:{event}')
         else:
             for event in self.__listeners:
                 self.removeAllListeners(event)
