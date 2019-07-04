@@ -67,15 +67,15 @@ class EventListenerStack():
 
 class EventListener():
     def __init__(self, listener):
-        self.__listener = listener
+        self._listener = listener
         self.__called_times = 0
 
     def respond(self, *data):
         self.__called_times += 1
-        self.__listener(*data)
+        self._listener(*data)
 
     def verify(self, fn):
-        return self.__listener == fn
+        return self._listener == fn
 
     @property
     def called_count(self):
