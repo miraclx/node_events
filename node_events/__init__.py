@@ -83,7 +83,8 @@ class EventListener():
 
 
 class EventEmitter:
-    __raw_listeners = {}
+    def __init__(self):
+        self.__raw_listeners = {}
 
     def __onceWrap(self, event, listener):
         def wrapped_fn(*data):
